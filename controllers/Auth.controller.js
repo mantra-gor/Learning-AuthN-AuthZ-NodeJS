@@ -1,5 +1,7 @@
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const User = require("../models/user.model.js");
+require("dotenv").config();
 
 exports.Register = async (req, res) => {
   try {
@@ -59,7 +61,7 @@ exports.Login = async (req, res) => {
       });
     }
 
-    const user = await User.findOne({ email });
+    let user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({
         success: false,
@@ -67,9 +69,31 @@ exports.Login = async (req, res) => {
       });
     }
 
+    const payload = {
+      email: user.email,
+      id: user._id,
+      role: user.role,
+    };
     // verify the password and generate jwt
     if (await bcrypt.compare(password, user.password)) {
       // password is verified successfully
+      let token = jwt.sign(payload, process.env.JWT_SECRET, {
+        expiresIn: "2h",
+      });
+      user = user.toObject();
+      user.token = token;
+      user.password = undefined;
+
+      const options = {
+        httpOnly: true,
+        expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      };
+      return res.cookie("token", token, options).status(200).json({
+        success: true,
+        token,
+        user,
+        message: "Logged in Successfully!",
+      });
     } else {
       // password do not match
       return res.status(403).json({
