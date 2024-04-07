@@ -7,6 +7,18 @@ const {
   isAdmin,
 } = require("../middlewares/Auth.middleware.js");
 
+
+// home screen for api documentations
+const fs = require("fs");
+const path = require("path");
+
+const apiDocsPath = path.join(__dirname, "../apiDocs.html");
+const apiDocs = fs.readFileSync(apiDocsPath, "utf8");
+
+router.get("/", (req,res) => {
+  res.send(apiDocs)
+})
+
 router.post("/login", Login);
 router.post("/register", Register);
 

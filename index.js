@@ -13,7 +13,7 @@ require("./config/database.js").connectDB();
 
 // import routes
 const user = require("./routes/user.routes.js");
-app.use("/api/v1", user);
+app.use("/auth/api/v1", user);
 
 app.listen(port, () => {
   console.log("Server started on port: ", port);

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon"
+        href="https://res.cloudinary.com/mantra-gor/image/upload/v1707920659/rfso7lfz3vdcjr7xevfm.png">
+    <title>My AuthN and AuthZ Learning Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        pre {
+            text-align: left;
+            overflow: scroll;
+            margin: 20px;
+            padding: 20px 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to My AuthN and AuthZ Learning Project</h1>
+    <p>This is my server where I have deployed my authentication and authorization learning project.</p>
+
+    <!-- API Documentation -->
+    <h2>API Documentation</h2>
+
+    <h3>POST /api/v1/register</h3>
+    <p>Register a new user.</p>
+    <pre>
+        Request:
+        {
+          "name": "mantra gor", 
+          "email": "johndoe@gmail.com",
+          "role": "Student"
+          "password": "11223344", 
+        }
+        
+        Response:
+        {
+          "success": true,
+          "message": "Successfully Created an Account"
+        }
+    </pre>
+
+    <h3>POST /api/v1/login</h3>
+    <p>Authenticate a user and get an access token.</p>
+    <pre>
+        Request:
+        {
+            "email": "johndoe@gmail.com",
+            "password": "password"
+        }
+        
+        Response:
+        {
+          "success": true,
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwiaWQiOiI2NjEyNDRkZjk1ZDIyNDI2MGJjM2RmMGEiLCJyb2xlIjoiU3R1ZGVudCIsImlhdCI6MTcxMjQ3MzM5NCwiZXhwIjoxNzEyNDgwNTk0fQ.quABzPNhN1tbWcJcNMIvi43SB6wNDyBf3ocQ2e1qAQ0",
+          "user": {
+              "_id": "661244df95d224260bc3df0a",
+              "name": "mantra gor",
+              "email": "johndoe@gmail.com",
+              "role": "Student",
+              "createdAt": "2024-04-07T07:01:51.450Z",
+              "updatedAt": "2024-04-07T07:01:51.450Z",
+              "__v": 0,
+              "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwiaWQiOiI2NjEyNDRkZjk1ZDIyNDI2MGJjM2RmMGEiLCJyb2xlIjoiU3R1ZGVudCIsImlhdCI6MTcxMjQ3MzM5NCwiZXhwIjoxNzEyNDgwNTk0fQ.quABzPNhN1tbWcJcNMIvi43SB6wNDyBf3ocQ2e1qAQ0"
+          },
+          "message": "Logged in Successfully!"
+        }
+    </pre>
+
+    <h3>POST /api/v1/student</h3>
+    <p>Protected route for students. Requires authentication and student role.</p>
+    <pre>
+        Headers:
+        {
+          "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+        }
+        
+        Response:
+        {
+            "success": true,
+            "message": "Welcome To Student"
+        }
+    </pre>
+
+    <h3>POST /api/v1/admin</h3>
+    <p>Protected route for admins. Requires authentication and admin role.</p>
+    <pre>
+        Headers:
+        {
+          "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+        }
+
+        Response:
+        {
+            "success": true,
+            "message": "Welcome To Admin"
+        }
+    </pre>
+</body>
+
+</html>
